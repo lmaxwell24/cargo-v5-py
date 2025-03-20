@@ -175,7 +175,7 @@ pub async fn upload_program(
 ) -> Result<(), CliError> {
     let multi_progress = MultiProgress::new();
 
-    let slot_file_name = format!("slot_{}.bin", slot);
+    let slot_file_name = format!("slot_{}.py", slot);
     let ini_file_name = format!("slot_{}.ini", slot);
 
     let ini_data = serde_ini::to_vec(&ProgramIniConfig {
