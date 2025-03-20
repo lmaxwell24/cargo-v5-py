@@ -682,7 +682,7 @@ pub async fn upload(
             .unwrap_or("Uploaded with cargo-v5.".to_string()),
         icon.or(metadata.and_then(|metadata| metadata.icon))
             .unwrap_or_default(),
-        "Python".to_string(), // `program_type` hardcoded for now, maybe configurable in the future.
+        "make".to_string(), // `program_type` hardcoded for now, maybe configurable in the future.
         match uncompressed {
             Some(val) => !val,
             None => metadata
