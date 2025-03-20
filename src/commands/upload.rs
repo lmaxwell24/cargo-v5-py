@@ -683,7 +683,7 @@ pub async fn upload(
         icon.or(metadata.and_then(|metadata| metadata.icon))
             .unwrap_or_default(),
         "make".to_string(), // `program_type` hardcoded for now, maybe configurable in the future.
-        true,
+        false,
         cold,
         upload_strategy
             .or(metadata.and_then(|metadata| metadata.upload_strategy))
