@@ -598,25 +598,7 @@ pub async fn upload(
     // The user either directly passed an file through the `--file` argument, or they didn't and we need to run
     // `cargo build`.
     let (artifact, package_id) = if let Some(file) = file {
-        if file.extension() == Some("bin") {
-            (file, None)
-        } else {
-            // If a BIN file wasn't provided, we'll attempt to objcopy it as if it were an ELF.
-            let binary = objcopy(
-                &tokio::fs::read(&file)
-                    .await
-                    .map_err(|e| CliError::IoError(e))?,
-            )?;
-            let binary_path = file.with_extension("bin");
-
-            // Write the binary to a file.
-            tokio::fs::write(&binary_path, binary)
-                .await
-                .map_err(|e| CliError::IoError(e))?;
-            println!("     \x1b[1;92mObjcopy\x1b[0m {}", binary_path);
-
-            (binary_path, None)
-        }
+        (file, None)
     } else {
         // Run cargo build, then objcopy.
         build(path, cargo_opts, false)
@@ -694,13 +676,13 @@ pub async fn upload(
         after,
         slot,
         name.or(package.as_ref().map(|pkg| pkg.name.clone()))
-            .unwrap_or("cargo-v5".to_string()),
+            .unwrap_or("Erica Program".to_string()),
         description
             .or(package.as_ref().and_then(|pkg| pkg.description.clone()))
             .unwrap_or("Uploaded with cargo-v5.".to_string()),
         icon.or(metadata.and_then(|metadata| metadata.icon))
             .unwrap_or_default(),
-        "Rust".to_string(), // `program_type` hardcoded for now, maybe configurable in the future.
+        "Python".to_string(), // `program_type` hardcoded for now, maybe configurable in the future.
         match uncompressed {
             Some(val) => !val,
             None => metadata
